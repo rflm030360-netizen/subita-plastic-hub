@@ -2,11 +2,15 @@ import { useState, useEffect } from "react";
 import heroFactory from "@/assets/hero-factory.jpg";
 import heroMachine from "@/assets/hero-machine.jpg";
 import heroTeam from "@/assets/hero-team.jpg";
+import { useLanguage } from "@/contexts/language-context";
+import { translations } from "@/lib/translations";
 
 const slides = [heroFactory, heroMachine, heroTeam];
 
 const HeroSection = () => {
   const [current, setCurrent] = useState(0);
+  const { language } = useLanguage();
+  const copy = translations[language];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -21,7 +25,7 @@ const HeroSection = () => {
         <img
           key={i}
           src={slide}
-          alt="CV. Subita Plastic Factory"
+          alt={copy.hero.slideAlt}
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
             i === current ? "opacity-100" : "opacity-0"
           }`}
@@ -36,19 +40,19 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight max-w-4xl animate-fade-in">
-          Siap Melayani Kebutuhan Injeksi
+          {copy.hero.titleLines[0]}
           <br />
-          dan Percetakan Plastik Sesuai Keinginan Anda
+          {copy.hero.titleLines[1]}
         </h1>
         <p className="mt-4 md:mt-6 text-primary-foreground/80 text-base md:text-lg max-w-2xl animate-fade-in" style={{ animationDelay: "0.2s" }}>
-          Solusi plastic injection & moulding terpercaya dengan standar kualitas tinggi dan presisi untuk aplikasi otomotif, industri, dan kebutuhan rumah tangga
+          {copy.hero.description}
         </p>
         <a
           href="#layanan"
           className="mt-8 inline-flex items-center px-8 py-3 rounded-lg bg-accent text-accent-foreground font-semibold text-sm hover:bg-accent/90 transition-colors animate-fade-in"
           style={{ animationDelay: "0.4s" }}
         >
-          Pelajari Lebih Lanjut
+          {copy.hero.cta}
         </a>
       </div>
 

@@ -9,23 +9,16 @@ import machine1 from "@/assets/machine-1.jpg";
 import machine2 from "@/assets/machine-2.jpg";
 import machine3 from "@/assets/machine-3.jpg";
 import machine4 from "@/assets/machine-4.jpg";
+import { useLanguage } from "@/contexts/language-context";
+import { translations } from "@/lib/translations";
 
-const products = [
-  { img: products1, title: "Produk Rumah Tangga" },
-  { img: products2, title: "Komponen Industri" },
-  { img: products3, title: "Wadah & Kemasan" },
-  { img: products4, title: "Komponen Teknis" },
-];
-
-const machines = [
-  { img: machine1, title: "Injection Molding Line" },
-  { img: machine2, title: "CNC Control System" },
-  { img: machine3, title: "Precision Mold Tooling" },
-  { img: machine4, title: "Automated Production" },
-];
+const productImages = [products1, products2, products3, products4];
+const machineImages = [machine1, machine2, machine3, machine4];
 
 const ProductGallery = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { language } = useLanguage();
+  const copy = translations[language];
 
   const scroll = (dir: "left" | "right") => {
     if (!scrollRef.current) return;
@@ -37,8 +30,8 @@ const ProductGallery = () => {
       <div className="container">
         {/* Products Slider */}
         <div className="text-center">
-          <h2 className="section-heading">Galeri Produk</h2>
-          <p className="section-subheading mt-3">Sampel barang jadi dari berbagai kategori</p>
+          <h2 className="section-heading">{copy.productGallery.productsHeading}</h2>
+          <p className="section-subheading mt-3">{copy.productGallery.productsSubheading}</p>
         </div>
 
         <div className="relative mt-14">
@@ -60,22 +53,22 @@ const ProductGallery = () => {
             className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
-            {products.map((p, i) => (
+            {copy.productGallery.products.map((product, i) => (
               <div
-                key={i}
+                key={product.title}
                 className="min-w-[320px] md:min-w-[400px] snap-start rounded-xl overflow-hidden shadow-sm border border-border flex-shrink-0 group"
               >
                 <div className="relative h-64 md:h-80 overflow-hidden">
                   <img
-                    src={p.img}
-                    alt={p.title}
+                    src={productImages[i]}
+                    alt={product.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                     width={800}
                     height={600}
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-primary/80 to-transparent p-5">
-                    <h3 className="text-primary-foreground font-bold text-lg">{p.title}</h3>
+                    <h3 className="text-primary-foreground font-bold text-lg">{product.title}</h3>
                   </div>
                 </div>
               </div>
@@ -85,22 +78,20 @@ const ProductGallery = () => {
 
         {/* Machines Grid */}
         <div className="mt-20 text-center">
-          <h2 className="section-heading">Mesin Produksi</h2>
-          <p className="section-subheading mt-3">
-            Didukung mesin injection moulding modern & berteknologi tinggi
-          </p>
+          <h2 className="section-heading">{copy.productGallery.machinesHeading}</h2>
+          <p className="section-subheading mt-3">{copy.productGallery.machinesSubheading}</p>
         </div>
 
         <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {machines.map((m, i) => (
+          {copy.productGallery.machines.map((machine, i) => (
             <div
-              key={i}
+              key={machine.title}
               className="rounded-xl overflow-hidden shadow-sm border border-border group"
             >
               <div className="h-52 overflow-hidden">
                 <img
-                  src={m.img}
-                  alt={m.title}
+                  src={machineImages[i]}
+                  alt={machine.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                   width={800}
@@ -108,7 +99,7 @@ const ProductGallery = () => {
                 />
               </div>
               <div className="p-4 bg-card">
-                <h3 className="text-sm font-semibold text-foreground">{m.title}</h3>
+                <h3 className="text-sm font-semibold text-foreground">{machine.title}</h3>
               </div>
             </div>
           ))}

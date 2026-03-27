@@ -1,18 +1,13 @@
 import { useState } from "react";
 import { Menu, X, Globe } from "lucide-react";
 import logo from "@/assets/logo.png";
-
-const navLinks = [
-  { label: "Beranda", href: "#beranda" },
-  { label: "Layanan", href: "#layanan" },
-  { label: "Bahan Baku", href: "#bahan" },
-  { label: "Produk", href: "#produk" },
-  { label: "Kontak", href: "#kontak" },
-];
+import { useLanguage } from "@/contexts/language-context";
+import { translations } from "@/lib/translations";
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [lang, setLang] = useState<"ID" | "EN">("ID");
+  const { language, toggleLanguage } = useLanguage();
+  const copy = translations[language];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border">
@@ -32,7 +27,7 @@ const Header = () => {
 
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-8">
-          {navLinks.map((link) => (
+          {copy.header.navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -46,13 +41,14 @@ const Header = () => {
         {/* Language + Mobile Toggle */}
         <div className="flex items-center gap-3">
           <button
-            onClick={() => setLang(lang === "ID" ? "EN" : "ID")}
+            onClick={toggleLanguage}
+            aria-label={copy.header.switchAriaLabel}
             className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-primary transition-colors px-2 py-1 rounded-md border border-border"
           >
             <Globe className="w-3.5 h-3.5" />
-            <span>{lang === "ID" ? "ID" : "EN"}</span>
+            <span>{language === "id" ? "ID" : "EN"}</span>
             <span className="text-border">|</span>
-            <span className="text-muted-foreground/50">{lang === "ID" ? "EN" : "ID"}</span>
+            <span className="text-muted-foreground/50">{language === "id" ? "EN" : "ID"}</span>
           </button>
 
           <button
@@ -67,7 +63,7 @@ const Header = () => {
       {/* Mobile Nav */}
       {mobileOpen && (
         <nav className="lg:hidden bg-card border-t border-border py-4">
-          {navLinks.map((link) => (
+          {copy.header.navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
