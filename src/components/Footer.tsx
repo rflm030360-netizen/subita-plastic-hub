@@ -50,9 +50,9 @@ const Footer = () => {
           <div>
             <h4 className="font-bold text-lg mb-5">{copy.footer.contactHeading}</h4>
             <div className="space-y-3">
-              <a href="tel:+62123456789" className="flex items-center gap-3 text-sm text-primary-foreground/80 hover:text-accent transition-colors">
+              <a href="tel:+6285183333159" className="flex items-center gap-3 text-sm text-primary-foreground/80 hover:text-accent transition-colors">
                 <Phone className="w-4 h-4" />
-                <span>+62 123 456 789</span>
+                <span>+62 851-8333-3159</span>
               </a>
               <a href="#" className="flex items-center gap-3 text-sm text-primary-foreground/80 hover:text-accent transition-colors">
                 <Instagram className="w-4 h-4" />
